@@ -15,7 +15,7 @@ export const tasksData = [
       "Implement a Python solution to synchronize data between an API and a third-party database securely, optimizing data exchange.",
     tags: ["web", "api", "dev"],
     favorite: true,
-    priority: "medium",
+    priority: "easy",
   },
   {
     id: 3,
@@ -27,12 +27,12 @@ export const tasksData = [
     priority: "medium",
   },
   {
-    id: 1,
+    id: 4,
     title: "Efficient Web API Connectivity in Python",
     description:
       "Integrate a web API with a third-party database using secure methods, focusing on seamless data exchange and data integrity.",
     tags: ["web", "api", "dev"],
     favorite: false,
-    priority: "medium",
+    priority: "high",
   },
 ];
