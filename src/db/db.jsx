@@ -1,4 +1,4 @@
-export const tasksData = [
+export const initialTasks = [
   {
     id: 1,
     title: "Integration API",
@@ -13,7 +13,7 @@ export const tasksData = [
     title: "API Data Synchronization with Python",
     description:
       "Implement a Python solution to synchronize data between an API and a third-party database securely, optimizing data exchange.",
-    tags: ["web", "api", "dev"],
+    tags: ["React", "Redux", "Zustan"],
     favorite: true,
     priority: "easy",
   },
@@ -22,7 +22,7 @@ export const tasksData = [
     title: " Data Synchronization",
     description:
       "Develop a Python-based solution for connecting an API to a third-party database securely, focusing on efficient data handling and exchange.",
-    tags: ["web", "api", "dev"],
+    tags: ["JS", "Python", "Java"],
     favorite: false,
     priority: "medium",
   },
@@ -31,7 +31,7 @@ export const tasksData = [
     title: "Efficient Web API Connectivity in Python",
     description:
       "Integrate a web API with a third-party database using secure methods, focusing on seamless data exchange and data integrity.",
-    tags: ["web", "api", "dev"],
+    tags: ["Git", "Github", "Vercel"],
     favorite: false,
     priority: "high",
   },

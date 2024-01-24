@@ -1,6 +1,9 @@
-import Task from "./Task";
+import { useTask } from '../../context/TaskContext'
+import Task from './Task'
 
 export default function TaskList() {
+  const tasks = useTask()
+
   return (
     <>
       <div className="overflow-auto">
@@ -26,10 +29,12 @@ export default function TaskList() {
             </tr>
           </thead>
           <tbody>
-            <Task />
+            {tasks?.map((task) => (
+              <Task key={task.id} task={task} />
+            ))}
           </tbody>
         </table>
       </div>
     </>
-  );
+  )
 }
