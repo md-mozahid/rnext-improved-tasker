@@ -1,54 +1,88 @@
-export default function AddTaskModal() {
+import { useState } from 'react'
+import { useDispatchTask } from '../../context/TaskContext'
+
+export default function AddTaskModal({ showAddTaskModal }) {
+  const [title, setTitle] = useState('')
+  const [desc, setDesc] = useState('')
+  const [tags, setTags] = useState('')
+  const [priority, setPriority] = useState('')
+
+  const dispatch = useDispatchTask()
+
+  // reset form
+  const resetForm = () => {
+    setTitle('')
+    setDesc('')
+    setTags('')
+    setPriority('')
+  }
+
+  // handle change function
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch({
+      title,
+      desc,
+      tags,
+      priority,
+    })
+    resetForm()
+  }
   return (
     <>
-      <form className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11">
+      <div className="bg-black bg-opacity-70 size-full top-0 left-0 absolute z-10"></div>
+      <form
+        className="absolute z-10 left-1/3 top-[10%]  mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11"
+        onSubmit={handleSubmit}>
         <h2 className="mb-9 text-center text-2xl font-bold text-white lg:mb-11 lg:text-[28px]">
           Add New Task
         </h2>
 
         <div className="space-y-9 text-white lg:space-y-10">
           <div className="space-y-2 lg:space-y-3">
-            <label for="title">Title</label>
+            <label htmlFor="title">Title</label>
             <input
               className="block w-full rounded-md bg-[#2D323F] px-3 py-2.5"
               type="text"
               name="title"
               id="title"
-              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
 
           <div className="space-y-2 lg:space-y-3">
-            <label for="description">Description</label>
+            <label htmlFor="description">Description</label>
             <textarea
               className="block min-h-[120px] w-full rounded-md bg-[#2D323F] px-3 py-2.5 lg:min-h-[180px]"
               type="text"
               name="description"
               id="description"
-              required
-            ></textarea>
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}></textarea>
           </div>
 
           <div className="grid-cols-2 gap-x-4 max-md:space-y-9 md:grid lg:gap-x-10 xl:gap-x-20">
             <div className="space-y-2 lg:space-y-3">
-              <label for="tags">Tags</label>
+              <label htmlFor="tags">Tags</label>
               <input
                 className="block w-full rounded-md bg-[#2D323F] px-3 py-2.5"
                 type="text"
                 name="tags"
                 id="tags"
-                required
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
               />
             </div>
 
             <div className="space-y-2 lg:space-y-3">
-              <label for="priority">Priority</label>
+              <label htmlFor="priority">Priority</label>
               <select
                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                 name="priority"
                 id="priority"
-                required
-              >
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}>
                 <option value="">Select Priority</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -58,15 +92,19 @@ export default function AddTaskModal() {
           </div>
         </div>
 
-        <div className="mt-16 flex justify-center lg:mt-20">
+        <div className="mt-16 flex justify-around lg:mt-20">
+          <button
+            className="rounded bg-rose-500 px-4 py-2 text-white transition-all hover:opacity-80"
+            onClick={() => showAddTaskModal(false)}>
+            Cancel
+          </button>
           <button
             type="submit"
-            className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
-          >
+            className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80">
             Create new Task
           </button>
         </div>
       </form>
     </>
-  );
+  )
 }

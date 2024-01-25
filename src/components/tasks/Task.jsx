@@ -1,5 +1,9 @@
+import { useDispatchTask } from '../../context/TaskContext'
+
 export default function Task({ task }) {
-  const { title, description, tags, priority, favorite } = task
+  const { id, title, description, tags, priority, favorite } = task
+
+  const dispatch = useDispatchTask()
   return (
     <>
       <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
@@ -37,7 +41,16 @@ export default function Task({ task }) {
         <td className="text-center">{priority}</td>
         <td>
           <div className="flex items-center justify-center space-x-3">
-            <button className="text-red-500">Delete</button>
+            <button
+              className="text-red-500"
+              onClick={() =>
+                dispatch({
+                  type: 'deleted',
+                  id,
+                })
+              }>
+              Delete
+            </button>
             <button className="text-blue-500">Edit</button>
           </div>
         </td>
