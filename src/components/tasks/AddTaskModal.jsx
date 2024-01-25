@@ -1,14 +1,17 @@
 import { useState } from 'react'
-import { useDispatchTask } from '../../context/TaskContext'
+import { useDispatchTask, useTask } from '../../context/TaskContext'
+import { getNextId } from '../../utils/getNextId'
 
 export default function AddTaskModal({ showAddTaskModal }) {
-  const [taskInput, setTaskInput] = useState({
+  const [text, setText] = useState({
     title: '',
     description: '',
     tags: [],
     priority: '',
     favorite: false,
   })
+
+  const tasks = useTask()
   const dispatch = useDispatchTask()
 
   const handleChange = (e) => {
@@ -18,7 +21,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
     if (name === 'tags') {
       value = value.split(',')
     }
-    setTaskInput({ ...taskInput, [name]: value })
+    setText({ ...text, [name]: value })
   }
 
   // event prevent default
@@ -43,7 +46,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="title"
               id="title"
-              value={taskInput.title}
+              value={text.title}
               onChange={handleChange}
             />
           </div>
@@ -55,8 +58,8 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="description"
               id="description"
-              value={taskInput.description}
-              onChange={handleChange}/>
+              value={text.description}
+              onChange={handleChange}></textarea>
           </div>
 
           <div className="grid-cols-2 gap-x-4 max-md:space-y-9 md:grid lg:gap-x-10 xl:gap-x-20">
@@ -67,7 +70,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 type="text"
                 name="tags"
                 id="tags"
-                value={taskInput.tags}
+                value={text.tags}
                 onChange={handleChange}
               />
             </div>
@@ -78,7 +81,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                 name="priority"
                 id="priority"
-                value={taskInput.priority}
+                value={text.priority}
                 onChange={handleChange}>
                 <option value="">Select Priority</option>
                 <option value="low">Low</option>
@@ -99,10 +102,11 @@ export default function AddTaskModal({ showAddTaskModal }) {
             type="submit"
             className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
             onClick={() => {
-              setTaskInput('')
+              setText('')          
               dispatch({
                 type: 'added',
-                task: taskInput,
+                task: text,
+                id: getNextId(tasks),
               })
             }}>
             Create new Task

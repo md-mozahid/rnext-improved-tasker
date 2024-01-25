@@ -1,5 +1,3 @@
-import { getNextId } from '../utils/getNextId'
-
 export const initialTasks = [
   {
     id: 1,
@@ -13,14 +11,17 @@ export const initialTasks = [
 ]
 
 export default function taskReducer(tasks, action) {
+  setTimeout(() => {
+    console.log(tasks)
+  }, 1000)
   console.log(action.task)
   switch (action.type) {
     case 'added': {
       return [
         ...tasks,
         {
-          id: getNextId(tasks),
-          task: action.payload,
+          id: action.id,
+          ...action.task,
           favorite: false,
         },
       ]
