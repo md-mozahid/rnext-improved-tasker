@@ -2,31 +2,28 @@ import { useState } from 'react'
 import { useDispatchTask } from '../../context/TaskContext'
 
 export default function AddTaskModal({ showAddTaskModal }) {
-  const [title, setTitle] = useState('')
-  const [desc, setDesc] = useState('')
-  const [tags, setTags] = useState('')
-  const [priority, setPriority] = useState('')
-
+  const [taskInput, setTaskInput] = useState({
+    title: '',
+    description: '',
+    tags: [],
+    priority: '',
+    favorite: false,
+  })
   const dispatch = useDispatchTask()
 
-  // reset form
-  const resetForm = () => {
-    setTitle('')
-    setDesc('')
-    setTags('')
-    setPriority('')
+  const handleChange = (e) => {
+    const name = e.target.name
+    let value = e.target.value
+
+    if (name === 'tags') {
+      value = value.split(',')
+    }
+    setTaskInput({ ...taskInput, [name]: value })
   }
 
-  // handle change function
+  // event prevent default
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch({
-      title,
-      desc,
-      tags,
-      priority,
-    })
-    resetForm()
   }
   return (
     <>
@@ -46,8 +43,8 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="title"
               id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={taskInput.title}
+              onChange={handleChange}
             />
           </div>
 
@@ -58,8 +55,8 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="description"
               id="description"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}></textarea>
+              value={taskInput.description}
+              onChange={handleChange}/>
           </div>
 
           <div className="grid-cols-2 gap-x-4 max-md:space-y-9 md:grid lg:gap-x-10 xl:gap-x-20">
@@ -70,8 +67,8 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 type="text"
                 name="tags"
                 id="tags"
-                value={tags}
-                onChange={(e) => setTags(e.target.value)}
+                value={taskInput.tags}
+                onChange={handleChange}
               />
             </div>
 
@@ -81,8 +78,8 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                 name="priority"
                 id="priority"
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}>
+                value={taskInput.priority}
+                onChange={handleChange}>
                 <option value="">Select Priority</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -100,7 +97,14 @@ export default function AddTaskModal({ showAddTaskModal }) {
           </button>
           <button
             type="submit"
-            className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80">
+            className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
+            onClick={() => {
+              setTaskInput('')
+              dispatch({
+                type: 'added',
+                task: taskInput,
+              })
+            }}>
             Create new Task
           </button>
         </div>

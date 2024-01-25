@@ -8,7 +8,8 @@ export default function taskReducer(tasks, action) {
         ...tasks,
         {
           id: getNextId(tasks),
-          task: action.task,
+          taskInput: action.payload,
+          favorite: false,
         },
       ]
     }
