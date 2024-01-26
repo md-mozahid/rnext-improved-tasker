@@ -3,7 +3,7 @@ import { createContext, useContext, useReducer } from 'react'
 export const TaskContext = createContext(null)
 export const TaskDispatchContext = createContext(null)
 
-import taskReducer, { initialTasks } from '../reducers/TaskReducer'
+import taskReducer, { initialTasks } from '../reducers/taskReducer'
 
 const initialState = {
   tasks: initialTasks,
