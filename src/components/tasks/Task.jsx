@@ -5,6 +5,7 @@ import DeleteModal from './DeleteModal'
 
 export default function Task({ task }) {
   const [deleteTask, setDeleteTask] = useState(false)
+  const [tagsColor] = useState(randomBgColors)
   const { id, title, description, tags, priority, favorite } = task
 
   const dispatch = useDispatchTask()
@@ -45,12 +46,12 @@ export default function Task({ task }) {
           <ul className="flex justify-center gap-1.5 flex-wrap">
             {tags?.map((tag, i) => {
               const randomIndex = Math.round(
-                Math.random() * (randomBgColors.length - 1)
+                Math.random() * (tagsColor.length - 1)
               )
               return (
                 <li key={i}>
                   <span
-                    style={{ background: randomBgColors[randomIndex] }}
+                    style={{ background: tagsColor[randomIndex] }}
                     className={`inline-block h-5 whitespace-nowrap rounded-[45px] px-2.5 text-sm capitalize text-[#F4F5F6]`}>
                     {tag}
                   </span>

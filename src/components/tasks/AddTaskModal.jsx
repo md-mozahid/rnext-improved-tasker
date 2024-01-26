@@ -55,6 +55,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
       id: getNextId(tasks),
     })
     setText('')
+    showAddTaskModal(false)
   }
   return (
     <>
