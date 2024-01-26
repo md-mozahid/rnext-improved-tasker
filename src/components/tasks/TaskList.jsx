@@ -1,8 +1,14 @@
 import { useTask } from '../../context/TaskContext'
+import NoTaskFound from '../NoTaskFound'
 import Task from './Task'
 
 export default function TaskList() {
   const tasks = useTask()
+
+  let content
+  if (tasks.length === 0) {
+    content = <NoTaskFound />
+  }
 
   return (
     <>
@@ -34,6 +40,7 @@ export default function TaskList() {
             ))}
           </tbody>
         </table>
+        {content}
       </div>
     </>
   )

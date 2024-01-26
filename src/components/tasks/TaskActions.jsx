@@ -1,6 +1,7 @@
-import { useDispatchTask } from '../../context/TaskContext'
+import { useDispatchTask, useTask } from '../../context/TaskContext'
 
 export default function TaskActions({ showAddTaskModal }) {
+  const tasks = useTask()
   const dispatch = useDispatchTask()
   return (
     <>

@@ -28,6 +28,16 @@ export default function AddTaskModal({ showAddTaskModal }) {
   const handleSubmit = (e) => {
     e.preventDefault()
   }
+
+  // handle add task
+  const handleAddTask = (text) => {
+    setText('')
+    dispatch({
+      type: 'added',
+      payload: text,
+      id: getNextId(tasks),
+    })
+  }
   return (
     <>
       <div className="bg-black bg-opacity-70 size-full top-0 left-0 absolute z-10"></div>
@@ -101,14 +111,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
           <button
             type="submit"
             className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
-            onClick={() => {
-              setText('')          
-              dispatch({
-                type: 'added',
-                task: text,
-                id: getNextId(tasks),
-              })
-            }}>
+            onClick={() => handleAddTask(text)}>
             Create new Task
           </button>
         </div>

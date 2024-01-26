@@ -1,16 +1,18 @@
-import { useDispatchTask } from '../../context/TaskContext'
+import { useDispatchTask, useTask } from '../../context/TaskContext'
 
 export default function Task({ task }) {
   const { id, title, description, tags, priority, favorite } = task
 
+  const tasks = useTask()
   const dispatch = useDispatchTask()
+
   return (
     <>
       <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
         <td>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className=""
+            className="cursor-pointer"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -20,7 +22,15 @@ export default function Task({ task }) {
             strokeLinecap="round"
             strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+            <path
+              d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"
+              onClick={() =>
+                dispatch({
+                  type: 'favoriteTask',
+                  payload: { id },
+                })
+              }
+            />
           </svg>
         </td>
         <td>{title}</td>
@@ -46,12 +56,20 @@ export default function Task({ task }) {
               onClick={() =>
                 dispatch({
                   type: 'deleted',
-                  id,
+                  payload: { id },
                 })
               }>
               Delete
             </button>
-            <button className="text-blue-500">Edit</button>
+            <button
+              className="text-blue-500"
+              onClick={() =>
+                dispatch({
+                  type: 'editedTask',
+                })
+              }>
+              Edit
+            </button>
           </div>
         </td>
       </tr>
