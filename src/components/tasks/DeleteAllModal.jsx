@@ -1,6 +1,6 @@
 import { useDispatchTask } from '../../context/TaskContext'
 
-export default function DeleteModal({ id, onDeleteTask }) {
+export default function DeleteAllModal({ onDeleteTask }) {
   const dispatch = useDispatchTask()
 
   return (
@@ -9,7 +9,7 @@ export default function DeleteModal({ id, onDeleteTask }) {
       <div className="py-10 flex flex-grow items-center justify-center absolute z-10 left-1/3">
         <div className="rounded-lg bg-slate-500 p-8 text-center shadow-xl w-[500px]">
           <h1 className="mb-4 text-3xl font-bold text-gray-200">
-            Are you sure delete task ?
+            Are you sure delete all task ?
           </h1>
           <div className="flex justify-end space-x-5 mt-10">
             <button
@@ -20,10 +20,8 @@ export default function DeleteModal({ id, onDeleteTask }) {
             <button
               className="mt-4 inline-block rounded bg-rose-500 px-4 py-2 font-semibold text-white hover:bg-rose-600"
               onClick={() => {
-                dispatch({
-                  type: 'deleted',
-                  payload: { id },
-                })
+                dispatch({ type: 'deleteAllTask' })
+                onDeleteTask(false)
               }}>
               Confirm
             </button>

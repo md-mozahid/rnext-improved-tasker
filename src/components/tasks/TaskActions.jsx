@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import DeleteModal from './DeleteModal'
+import DeleteModal from './DeleteAllModal'
 
 export default function TaskActions({ showAddTaskModal }) {
   const [deleteTask, setDeleteTask] = useState(false)
 
   return (
     <>
-    {deleteTask && <DeleteModal />}
+      {deleteTask && <DeleteModal onDeleteTask={setDeleteTask} />}
       <button
         className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
         onClick={() => showAddTaskModal(true)}>

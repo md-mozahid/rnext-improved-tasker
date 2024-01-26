@@ -1,13 +1,17 @@
+import { useState } from 'react'
 import { useDispatchTask } from '../../context/TaskContext'
 import { randomBgColors } from '../../utils/randomBgColors'
+import DeleteModal from './DeleteModal'
 
 export default function Task({ task }) {
+  const [deleteTask, setDeleteTask] = useState(false)
   const { id, title, description, tags, priority, favorite } = task
 
   const dispatch = useDispatchTask()
 
   return (
     <>
+      {deleteTask && <DeleteModal id={id} onDeleteTask={setDeleteTask} />}
       <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
         <td>
           <svg
@@ -61,10 +65,11 @@ export default function Task({ task }) {
             <button
               className="text-red-500"
               onClick={() =>
-                dispatch({
-                  type: 'deleted',
-                  payload: { id },
-                })
+                // dispatch({
+                //   type: 'deleted',
+                //   payload: { id },
+                // })
+                setDeleteTask(true)
               }>
               Delete
             </button>

@@ -17,9 +17,11 @@ export default function TaskProvider({ children }) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTask() {
   return useContext(TaskContext)
 }
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDispatchTask() {
   return useContext(TaskDispatchContext)
 }
