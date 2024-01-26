@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useDispatchTask } from '../../context/TaskContext'
 import { randomBgColors } from '../../utils/randomBgColors'
-import DeleteModal from './DeleteModal'
+import DeleteModal from '../DeleteModal'
 
-export default function Task({ task }) {
+export default function Task({ task, setShowAddTaskModal }) {
   const [deleteTask, setDeleteTask] = useState(false)
   const [tagsColor] = useState(randomBgColors)
   const { id, title, description, tags, priority, favorite } = task
@@ -76,11 +76,13 @@ export default function Task({ task }) {
             </button>
             <button
               className="text-blue-500"
-              onClick={() =>
+              onClick={() => {
+                setShowAddTaskModal(true)
                 dispatch({
-                  type: 'editedTask',
+                  type: 'taskToUpdate',
+                  payload: task,
                 })
-              }>
+              }}>
               Edit
             </button>
           </div>

@@ -3,35 +3,19 @@ import { useDispatchTask, useTask } from '../../context/TaskContext'
 import { getNextId } from '../../utils/getNextId'
 
 export default function AddTaskModal({ showAddTaskModal }) {
-  const [text, setText] = useState({
-    title: '',
-    description: '',
-    tags: [],
-    priority: '',
-    favorite: false,
-  })
-  const [errors, setErrors] = useState('')
-  const [submitting, setSubmitting] = useState(false)
+  const state = useTask()
+  const [task, setTask] = useState(
+    state.taskToUpdate || {
+      title: '',
+      description: '',
+      tags: [],
+      priority: '',
+      favorite: false,
+    }
+  )
 
-  // function for validation
-  const validateValues = (inputValues) => {
-    let errors = {}
-    if (inputValues.title === '') {
-      errors.title = 'Required title field'
-    }
-    if (inputValues.description === '') {
-      errors.description = 'Required description field'
-    }
-    if (inputValues.tags.length === 0) {
-      errors.tags = 'Required tags field'
-    }
-    if (inputValues.priority === '') {
-      errors.priority = 'Required priority field'
-    }
-    return errors
-  }
+  const [isAdd, setIsAdd] = useState(Object.is(state.taskToUpdate, null))
 
-  const tasks = useTask()
   const dispatch = useDispatchTask()
 
   const handleChange = (e) => {
@@ -41,20 +25,25 @@ export default function AddTaskModal({ showAddTaskModal }) {
     if (name === 'tags') {
       value = value.split(',')
     }
-    setText({ ...text, [name]: value })
+    setTask({ ...task, [name]: value })
   }
 
   // event prevent default
   const handleSubmit = (e) => {
     e.preventDefault()
-    setErrors(validateValues(text))
-    setSubmitting(true)
-    dispatch({
-      type: 'added',
-      payload: text,
-      id: getNextId(tasks),
-    })
-    setText('')
+
+    if (isAdd) {
+      dispatch({
+        type: 'added',
+        payload: { ...task, favorite: false, id: getNextId(state.tasks) },
+      })
+      setTask('')
+    } else {
+      dispatch({
+        type: 'editedTask',
+        payload: task,
+      })
+    }
     showAddTaskModal(false)
   }
   return (
@@ -75,10 +64,10 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="title"
               id="title"
-              value={text.title}
+              value={task.title}
               onChange={handleChange}
             />
-            <span className="text-rose-500">{errors.title}</span>
+            {/* <span className="text-rose-500">{errors.title}</span> */}
           </div>
 
           <div className="space-y-2 lg:space-y-3">
@@ -88,9 +77,9 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="description"
               id="description"
-              value={text.description}
+              value={task.description}
               onChange={handleChange}></textarea>
-            <span className="text-rose-500">{errors.description}</span>
+            {/* <span className="text-rose-500">{errors.description}</span> */}
           </div>
 
           <div className="grid-cols-2 gap-x-4 max-md:space-y-9 md:grid lg:gap-x-10 xl:gap-x-20">
@@ -101,10 +90,10 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 type="text"
                 name="tags"
                 id="tags"
-                value={text.tags}
+                value={task.tags}
                 onChange={handleChange}
               />
-              <span className="text-rose-500">{errors.tags}</span>
+              {/* <span className="text-rose-500">{errors.tags}</span> */}
             </div>
 
             <div className="space-y-2 lg:space-y-3">
@@ -113,14 +102,14 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                 name="priority"
                 id="priority"
-                value={text.priority}
+                value={task.priority}
                 onChange={handleChange}>
                 <option value="">Select Priority</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
               </select>
-              <span className="text-rose-500">{errors.priority}</span>
+              {/* <span className="text-rose-500">{errors.priority}</span> */}
             </div>
           </div>
         </div>
@@ -134,7 +123,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
           <button
             type="submit"
             className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80">
-            Create new Task
+            {isAdd ? 'Create new Task' : 'Update Task'}
           </button>
         </div>
       </form>

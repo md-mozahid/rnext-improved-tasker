@@ -15,57 +15,62 @@ export const initialTasks = [
       'Implement a Python solution to synchronize data between an API and a third-party database securely, optimizing data exchange.',
     tags: ['React', 'Redux', 'Zustan'],
     favorite: true,
-    priority: 'easy',
+    priority: 'high',
   },
 ]
 
-export default function taskReducer(tasks, action) {
+export default function taskReducer(state, action) {
   switch (action.type) {
     case 'added': {
-      return [
-        ...tasks,
-        {
-          id: action.id,
-          ...action.payload,
-          favorite: false,
-        },
-      ]
+      return {
+        ...state,
+        tasks: [...state.tasks, action.payload],
+      }
     }
 
     case 'editedTask': {
-      const edited = tasks.map((t) => {
-        if (t.id === action.payload.id) {
-          return action.task
+      const updatedTasks = state.tasks.map((t) => {
+        if (t.id === action.payload?.id) {
+          return action.payload
         } else {
           return t
         }
       })
-      console.log(edited)
-      return edited
+      return { ...state, tasks: updatedTasks }
     }
 
     case 'deleted': {
-      return tasks.filter((t) => t.id !== action.payload.id)
+      const filterTasks = state.tasks.filter((t) => t.id !== action.payload.id)
+      return { ...state, tasks: filterTasks }
     }
 
     case 'deleteAllTask': {
-      return tasks.filter((t) => (t.length = 0))
+      return { ...state, tasks: [] }
     }
 
     case 'favoriteTask': {
-      return tasks.map((task) => {
+      const updatedTasks = state.tasks.map((task) => {
         if (task.id === action.payload.id) {
           return { ...task, favorite: !task.favorite }
         } else {
           return task
         }
       })
+      return { ...state, tasks: updatedTasks }
     }
 
-    case 'searchTask': {
-      return tasks.filter((task) =>
-        task.title.toLowerCase().includes(action.payload.toLowerCase())
-      )
+    case 'taskToUpdate': {
+      return {
+        ...state,
+        taskToUpdate: action.payload,
+      }
+    }
+
+    case 'search': {
+      return {
+        ...state,
+        search: action.payload,
+      }
     }
 
     default: {

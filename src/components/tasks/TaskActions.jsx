@@ -1,20 +1,29 @@
 import { useState } from 'react'
-import DeleteModal from './DeleteAllModal'
+import { useDispatchTask } from '../../context/TaskContext'
+import DeleteAllModal from '../DeleteAllModal'
 
 export default function TaskActions({ showAddTaskModal }) {
-  const [deleteTask, setDeleteTask] = useState(false)
+  const [deleteAllTask, setDeleteAllTask] = useState(false)
+  const dispatch = useDispatchTask()
 
   return (
     <>
-      {deleteTask && <DeleteModal onDeleteTask={setDeleteTask} />}
+      {deleteAllTask && <DeleteAllModal onDeleteAllTask={setDeleteAllTask} />}
       <button
         className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
-        onClick={() => showAddTaskModal(true)}>
+        onClick={() => {
+          showAddTaskModal(true)
+
+          dispatch({
+            type: 'taskToUpdate',
+            payload: null,
+          })
+        }}>
         Add Task
       </button>
       <button
         className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold"
-        onClick={() => setDeleteTask(true)}>
+        onClick={() => setDeleteAllTask(true)}>
         Delete All
       </button>
     </>

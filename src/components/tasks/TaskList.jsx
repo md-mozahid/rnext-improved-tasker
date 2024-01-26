@@ -2,11 +2,14 @@ import { useTask } from '../../context/TaskContext'
 import NoTaskFound from '../NoTaskFound'
 import Task from './Task'
 
-export default function TaskList() {
-  const tasks = useTask()
+export default function TaskList({ setShowAddTaskModal }) {
+  const state = useTask()
+
+  const searchByString = (task) =>
+    task.title.toLowerCase().includes(state.search.toLowerCase())
 
   let content
-  if (tasks.length === 0) {
+  if (state.tasks.length === 0) {
     content = <NoTaskFound />
   }
 
@@ -35,8 +38,12 @@ export default function TaskList() {
             </tr>
           </thead>
           <tbody>
-            {tasks?.map((task) => (
-              <Task key={task.id} task={task} />
+            {state.tasks?.filter(searchByString).map((task) => (
+              <Task
+                key={task.id}
+                task={task}
+                setShowAddTaskModal={setShowAddTaskModal}
+              />
             ))}
           </tbody>
         </table>

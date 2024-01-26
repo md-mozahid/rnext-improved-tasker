@@ -5,8 +5,15 @@ export const TaskDispatchContext = createContext(null)
 
 import taskReducer, { initialTasks } from '../reducers/TaskReducer'
 
+const initialState = {
+  tasks: initialTasks,
+  taskToUpdate: null,
+  search: ''
+}
+
 export default function TaskProvider({ children }) {
-  const [tasks, dispatch] = useReducer(taskReducer, initialTasks)
+  const [tasks, dispatch] = useReducer(taskReducer, initialState)
+
 
   return (
     <TaskContext.Provider value={tasks}>

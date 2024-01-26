@@ -9,7 +9,7 @@ export default function SearchTask() {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch({
-      type: 'searchTask',
+      type: 'search',
       payload: searchValue,
     })
   }
