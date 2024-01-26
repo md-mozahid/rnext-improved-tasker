@@ -1,26 +1,24 @@
 import { useState } from 'react'
-import { useTask } from '../../context/TaskContext'
+import { useDispatchTask, useTask } from '../../context/TaskContext'
 
 export default function SearchTask() {
-  const [search, setSearch] = useState('')
-  const [searchValue, setSearchValue] = useState('')
+  const dispatch = useDispatchTask()
   const tasks = useTask()
 
-  const filterByString = (task) => 
+  const [search, setSearch] = useState('')
+  const [searchValue, setSearchValue] = useState('')
+
+  const filterByString = (task) =>
     task.title.toLowerCase().includes(searchValue.toLowerCase())
 
-    // console.log(task)
-  
+  // console.log(task)
 
   tasks.filter(filterByString)
-
-  const handleSearchFilter = (value) => {
-    setSearchValue(value)
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
   }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -31,13 +29,18 @@ export default function SearchTask() {
               id="search-dropdown"
               className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"
               placeholder="Search Task"
-              value={search}
+              value={searchValue}
               onChange={(e) => setSearch(e.target.value)}
             />
             <button
               type="submit"
               className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
-              onClick={() => handleSearchFilter(search)}>
+              onClick={() =>
+                dispatch({
+                  type: 'searchTask',
+                  payload: { search },
+                })
+              }>
               <svg
                 className="h-4 w-4"
                 aria-hidden="true"

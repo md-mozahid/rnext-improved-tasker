@@ -1,9 +1,9 @@
-import { useDispatchTask, useTask } from '../../context/TaskContext'
+import { useDispatchTask } from '../../context/TaskContext'
+import { randomBgColors } from '../../utils/randomBgColors'
 
 export default function Task({ task }) {
   const { id, title, description, tags, priority, favorite } = task
 
-  const tasks = useTask()
   const dispatch = useDispatchTask()
 
   return (
@@ -39,13 +39,20 @@ export default function Task({ task }) {
         </td>
         <td>
           <ul className="flex justify-center gap-1.5 flex-wrap">
-            {tags?.map((tag, i) => (
-              <li key={i}>
-                <span className="inline-block h-5 whitespace-nowrap rounded-[45px] bg-[#00D991A1] px-2.5 text-sm capitalize text-[#F4F5F6]">
-                  {tag}
-                </span>
-              </li>
-            ))}
+            {tags?.map((tag, i) => {
+              const randomIndex = Math.round(
+                Math.random() * (randomBgColors.length - 1)
+              )
+              return (
+                <li key={i}>
+                  <span
+                    style={{ background: randomBgColors[randomIndex] }}
+                    className={`inline-block h-5 whitespace-nowrap rounded-[45px] px-2.5 text-sm capitalize text-[#F4F5F6]`}>
+                    {tag}
+                  </span>
+                </li>
+              )
+            })}
           </ul>
         </td>
         <td className="text-center">{priority}</td>

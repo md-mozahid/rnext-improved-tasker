@@ -10,7 +10,7 @@ export const initialTasks = [
   },
   {
     id: 2,
-    title: 'API Data Synchronization with Python',
+    title: 'Server Side Rendering',
     description:
       'Implement a Python solution to synchronize data between an API and a third-party database securely, optimizing data exchange.',
     tags: ['React', 'Redux', 'Zustan'],
@@ -60,6 +60,12 @@ export default function taskReducer(tasks, action) {
           return task
         }
       })
+    }
+
+    case 'searchTask': {
+      return tasks.filter((task) =>
+        task.title.toLowerCase().includes(action.payload.toLowerCase())
+      )
     }
 
     default: {
