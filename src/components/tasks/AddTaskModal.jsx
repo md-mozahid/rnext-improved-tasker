@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatchTask, useTask } from '../../context/TaskContext'
 import { getNextId } from '../../utils/getNextId'
+import Button from '../Button'
 
 export default function AddTaskModal({ showAddTaskModal }) {
   const state = useTask()
@@ -28,7 +29,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
     setTask({ ...task, [name]: value })
   }
 
-  // event prevent default
+  // event handler
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -46,6 +47,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
     }
     showAddTaskModal(false)
   }
+  
   return (
     <>
       <div className="bg-black bg-opacity-70 size-full top-0 left-0 absolute z-10"></div>
@@ -119,16 +121,14 @@ export default function AddTaskModal({ showAddTaskModal }) {
         </div>
 
         <div className="mt-16 flex justify-around lg:mt-20">
-          <button
-            className="rounded bg-rose-500 px-4 py-2 text-white transition-all hover:opacity-80"
+          <Button
+            className=" bg-rose-500 hover:opacity-80"
             onClick={() => showAddTaskModal(false)}>
             Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80">
+          </Button>
+          <Button type="submit" className=" bg-blue-600  hover:opacity-80">
             {isAdd ? 'Create new Task' : 'Update Task'}
-          </button>
+          </Button>
         </div>
       </form>
     </>

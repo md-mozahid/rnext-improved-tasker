@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from 'react'
 
+// create context
 export const TaskContext = createContext(null)
 export const TaskDispatchContext = createContext(null)
 
@@ -12,6 +13,7 @@ const initialState = {
   search: '',
 }
 
+// create provider
 export default function TaskProvider({ children }) {
   const [tasks, dispatch] = useReducer(taskReducer, initialState)
 
@@ -24,6 +26,7 @@ export default function TaskProvider({ children }) {
   )
 }
 
+// create custom hook
 // eslint-disable-next-line react-refresh/only-export-components
 export function useTask() {
   return useContext(TaskContext)

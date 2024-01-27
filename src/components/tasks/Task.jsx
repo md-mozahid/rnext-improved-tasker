@@ -65,13 +65,7 @@ export default function Task({ task, setShowAddTaskModal }) {
           <div className="flex items-center justify-center space-x-3">
             <button
               className="text-red-500"
-              onClick={() =>
-                // dispatch({
-                //   type: 'deleted',
-                //   payload: { id },
-                // })
-                setDeleteTask(true)
-              }>
+              onClick={() => setDeleteTask(true)}>
               Delete
             </button>
             <button

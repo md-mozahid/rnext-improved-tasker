@@ -1,4 +1,5 @@
 import { useDispatchTask } from '../context/TaskContext'
+import Button from './Button'
 
 export default function DeleteAllModal({ onDeleteAllTask }) {
   const dispatch = useDispatchTask()
@@ -12,19 +13,19 @@ export default function DeleteAllModal({ onDeleteAllTask }) {
             Are you sure delete all task ?
           </h1>
           <div className="flex justify-end space-x-5 mt-5">
-            <button
-              className="mt-4 inline-block rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
+            <Button
+              className="bg-blue-500 hover:bg-blue-600"
               onClick={() => onDeleteAllTask(false)}>
               Close
-            </button>
-            <button
-              className="mt-4 inline-block rounded bg-rose-500 px-4 py-2 font-semibold text-white hover:bg-rose-600"
+            </Button>
+            <Button
+              className="bg-rose-500 hover:bg-rose-600"
               onClick={() => {
                 dispatch({ type: 'deleteAllTask' })
                 onDeleteAllTask(false)
               }}>
               Confirm
-            </button>
+            </Button>
           </div>
         </div>
       </div>
