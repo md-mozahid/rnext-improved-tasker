@@ -14,7 +14,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
     }
   )
 
-  const [isAdd, setIsAdd] = useState(Object.is(state.taskToUpdate, null))
+  const [isAdd] = useState(Object.is(state.taskToUpdate, null))
 
   const dispatch = useDispatchTask()
 
@@ -64,6 +64,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="title"
               id="title"
+              required
               value={task.title}
               onChange={handleChange}
             />
@@ -77,6 +78,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
               type="text"
               name="description"
               id="description"
+              required
               value={task.description}
               onChange={handleChange}></textarea>
             {/* <span className="text-rose-500">{errors.description}</span> */}
@@ -90,6 +92,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 type="text"
                 name="tags"
                 id="tags"
+                required
                 value={task.tags}
                 onChange={handleChange}
               />
@@ -102,6 +105,7 @@ export default function AddTaskModal({ showAddTaskModal }) {
                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                 name="priority"
                 id="priority"
+                required
                 value={task.priority}
                 onChange={handleChange}>
                 <option value="">Select Priority</option>

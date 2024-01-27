@@ -30,12 +30,6 @@ export default function SearchTask() {
             <button
               type="submit"
               className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
-              // onClick={() =>
-              //   dispatch({
-              //     type: 'searchTask',
-              //     payload: searchValue,
-              //   })
-              // }
             >
               <svg
                 className="h-4 w-4"

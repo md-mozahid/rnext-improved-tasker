@@ -3,17 +3,17 @@ import { createContext, useContext, useReducer } from 'react'
 export const TaskContext = createContext(null)
 export const TaskDispatchContext = createContext(null)
 
-import taskReducer, { initialTasks } from '../reducers/taskReducer'
+import { initialTasks } from '../reducers/initialTasks'
+import taskReducer from '../reducers/taskReducer'
 
 const initialState = {
   tasks: initialTasks,
   taskToUpdate: null,
-  search: ''
+  search: '',
 }
 
 export default function TaskProvider({ children }) {
   const [tasks, dispatch] = useReducer(taskReducer, initialState)
-
 
   return (
     <TaskContext.Provider value={tasks}>

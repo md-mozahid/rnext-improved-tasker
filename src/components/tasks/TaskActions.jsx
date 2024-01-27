@@ -9,6 +9,7 @@ export default function TaskActions({ showAddTaskModal }) {
   return (
     <>
       {deleteAllTask && <DeleteAllModal onDeleteAllTask={setDeleteAllTask} />}
+      <button>Test btn</button>
       <button
         className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
         onClick={() => {

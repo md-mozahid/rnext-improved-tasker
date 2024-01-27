@@ -5,8 +5,9 @@ import Task from './Task'
 export default function TaskList({ setShowAddTaskModal }) {
   const state = useTask()
 
-  const searchByString = (task) =>
+  const searchByString = (task) =>(
     task.title.toLowerCase().includes(state.search.toLowerCase())
+  )
 
   let content
   if (state.tasks.length === 0) {

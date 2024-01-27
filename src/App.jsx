@@ -1,8 +1,9 @@
-import Navbar from "./components/Navbar";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import TaskContainer from "./components/tasks/TaskContainer";
-import TaskProvider from "./context/TaskContext";
+import './App.css'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Navbar from './components/Navbar'
+import TaskContainer from './components/tasks/TaskContainer'
+import TaskProvider from './context/TaskContext'
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <TaskContainer />
       <Footer />
     </TaskProvider>
-  );
+  )
 }
 
-export default App;
+export default App
